@@ -1,5 +1,13 @@
 import React from "react"
-import { Image, ImageStyle, View, ViewStyle, ScrollView, TouchableOpacity } from "react-native"
+import {
+  Image,
+  ImageStyle,
+  View,
+  ViewStyle,
+  ScrollView,
+  TouchableOpacity,
+  useColorScheme,
+} from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../components"
 import { ListAccounts } from "../components/ListAccounts"
@@ -12,9 +20,10 @@ export const AccountHistoryScreen = () => {
   // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
+  const theme = useColorScheme()
 
   return (
-    <ScrollView style={$scrollContainer}>
+    <ScrollView style={[$scrollContainer, { backgroundColor: "#523CF8" }]}>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
           <Text
@@ -40,12 +49,10 @@ export const AccountHistoryScreen = () => {
 
 const $scrollContainer: ViewStyle = {
   flex: 1,
-  backgroundColor: "#523CF8",
 }
 const $container: ViewStyle = {
   flex: 1,
   alignItems: "center",
-  backgroundColor: "#523CF8",
   paddingBottom: 150,
 }
 
