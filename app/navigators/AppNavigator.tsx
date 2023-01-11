@@ -7,9 +7,13 @@ import { useColorScheme } from "react-native"
 import Config from "../config"
 import { TabNavigator } from "./TabNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+import { SettingsScreen } from "../screens/SettingsScreen"
+import { TransactionsScreen } from "../screens/TransactionsScreen"
 
 export type AppStackParamList = {
   Welcome: undefined
+  Transactions: undefined
+  Settings: undefined
 }
 
 const exitRoutes = Config.exitRoutes
@@ -30,6 +34,12 @@ const AppStack = observer(function AppStack() {
       }}
     >
       <Stack.Screen name="Welcome" component={TabNavigator} />
+      <Stack.Group screenOptions={{ presentation: "modal", animation: "slide_from_bottom" }}>
+        <Stack.Screen name="Transactions" component={TransactionsScreen} />
+      </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: "modal", animation: "slide_from_bottom" }}>
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+      </Stack.Group>
     </Stack.Navigator>
   )
 })

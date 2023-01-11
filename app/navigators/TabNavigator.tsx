@@ -4,6 +4,9 @@ import React from "react"
 import { Image, TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { AccountHistoryScreen } from "../screens"
+import { CardsScreen } from "../screens/CardsScreen"
+import { DashboardScreen } from "../screens/DashboardScreen"
+import { PaymentsScreen } from "../screens/PaymentsScreen copy"
 import { colors, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
@@ -13,10 +16,10 @@ import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 // import { Entypo } from "@expo/vector-icons"
 
 export type DemoTabParamList = {
-  DemoCommunity: undefined
-  DemoShowroom: { queryIndex?: string; itemIndex?: string }
-  DemoDebug: undefined
+  DashboardScreen: undefined
+  CardsScreen: undefined
   AccountHistoryScreen: undefined
+  PaymentsScreen: undefined
 }
 
 export type DemoTabScreenProps<T extends keyof DemoTabParamList> = CompositeScreenProps<
@@ -47,8 +50,8 @@ export function TabNavigator() {
       }}
     >
       <Tab.Screen
-        name="DemoShowroom"
-        component={AccountHistoryScreen}
+        name="DashboardScreen"
+        component={DashboardScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             // <MaterialIcons name="account-balance-wallet" size={24} color={focused && "#523CF8"} />
@@ -65,8 +68,8 @@ export function TabNavigator() {
       />
 
       <Tab.Screen
-        name="DemoCommunity"
-        component={AccountHistoryScreen}
+        name="CardsScreen"
+        component={CardsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             // <Ionicons name="card" size={24} color={focused && "#523CF8"} />
@@ -101,8 +104,8 @@ export function TabNavigator() {
       />
 
       <Tab.Screen
-        name="DemoDebug"
-        component={AccountHistoryScreen}
+        name="PaymentsScreen"
+        component={PaymentsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             // <Entypo name="text-document-inverted" size={24} color={focused && "#523CF8"} />
