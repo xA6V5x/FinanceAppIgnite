@@ -1,20 +1,12 @@
 import React from "react"
-import {
-  Image,
-  ImageStyle,
-  TextStyle,
-  View,
-  ViewStyle,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native"
+import { Image, ImageStyle, View, ViewStyle, ScrollView, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../components"
 import { ListAccounts } from "../components/ListAccounts"
 import { colors } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import Transactions from "../infoJson/recentTransactions.json"
+import Transactions from "../infoJson/recentTransactions.js"
 
 export const AccountHistoryScreen = () => {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
@@ -60,8 +52,12 @@ export const AccountHistoryScreen = () => {
                     height: 35,
                     backgroundColor: "#F76654",
                     borderRadius: 10,
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
-                ></View>
+                >
+                  <Image source={data.icon} />
+                </View>
                 <View
                   style={{
                     flex: 1,
@@ -119,7 +115,7 @@ const $headerContainer: ViewStyle = {
 }
 
 const $transactionsContainer: ViewStyle = {
-  width: "95%",
+  width: "92%",
   margin: 11,
   padding: 22,
   backgroundColor: colors.palette.neutral100,

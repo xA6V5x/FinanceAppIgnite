@@ -57,6 +57,7 @@ const $currency: ViewStyle = {
 const $EUR: TextStyle = {
   marginVertical: 16,
   backgroundColor: "#523CF8",
+  paddingVertical: 3,
   paddingHorizontal: 10,
   borderRadius: 10,
 }
@@ -65,10 +66,12 @@ const $USD: TextStyle = {
   marginVertical: 16,
   marginHorizontal: 5,
   paddingHorizontal: 16,
+  paddingVertical: 3,
   borderRadius: 10,
 }
 
 const $GBP: TextStyle = {
   marginVertical: 16,
   borderRadius: 10,
+  paddingVertical: 3,
 }
