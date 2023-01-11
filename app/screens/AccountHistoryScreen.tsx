@@ -10,12 +10,12 @@ import {
   TouchableOpacity,
 } from "react-native"
 import { Text } from "../components"
-import { CardsAccounts } from "../components/CardsAccounts"
+import { ListAccounts } from "../components/ListAccounts"
 import { colors } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen() {
+export const AccountHistoryScreen = () => {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const { bottom } = useSafeAreaInsets()
 
@@ -23,22 +23,24 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
     <ScrollView>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
-          <Text text="Account History" size="md" style={{ color: "#ffff" }} weight="bold" />
+          <Text
+            text="Account History"
+            size="md"
+            style={{ color: colors.palette.neutral100 }}
+            weight="bold"
+          />
           <TouchableOpacity activeOpacity={0.8} style={$settingsButton}>
             <Image source={require("../../assets/icons/settingsLight.png")} style={$settingsIcon} />
           </TouchableOpacity>
         </View>
-        <CardsAccounts />
-        <View style={$cardContainer}>
-          <Text text="Current Account" size="xl" weight="bold" />
-        </View>
+        <ListAccounts />
         <View style={[$transactionsContainer, $bottomContainerInsets]}>
           <Text text="Recent transactions" size="md" weight="bold" />
         </View>
       </View>
     </ScrollView>
   )
-})
+}
 
 const $container: ViewStyle = {
   flex: 1,
@@ -54,23 +56,16 @@ const $headerContainer: ViewStyle = {
   alignItems: "center",
 }
 
-const $cardContainer: ViewStyle = {
-  width: "80%",
-  borderRadius: 30,
-  padding: 10,
-  backgroundColor: "#ffff",
-}
-
 const $transactionsContainer: ViewStyle = {
   width: "95%",
-  margin: 10,
-  padding: 10,
+  margin: 11,
+  padding: 22,
   backgroundColor: colors.palette.neutral100,
   borderRadius: 30,
   justifyContent: "space-around",
 }
 
-const $settingsButton = { position: "absolute", right: 0, marginRight: 15 }
+const $settingsButton: ViewStyle = { position: "absolute", right: 0, marginRight: 15 }
 
 const $settingsIcon: ImageStyle = { width: 28, height: 28 }
 

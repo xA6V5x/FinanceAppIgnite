@@ -3,7 +3,7 @@ import { CompositeScreenProps } from "@react-navigation/native"
 import React from "react"
 import { Image, TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { WelcomeScreen } from "../screens"
+import { AccountHistoryScreen } from "../screens"
 import { colors, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
@@ -16,7 +16,7 @@ export type DemoTabParamList = {
   DemoCommunity: undefined
   DemoShowroom: { queryIndex?: string; itemIndex?: string }
   DemoDebug: undefined
-  DemoPodcastList: undefined
+  AccountHistoryScreen: undefined
 }
 
 export type DemoTabScreenProps<T extends keyof DemoTabParamList> = CompositeScreenProps<
@@ -48,7 +48,7 @@ export function TabNavigator() {
     >
       <Tab.Screen
         name="DemoShowroom"
-        component={WelcomeScreen}
+        component={AccountHistoryScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             // <MaterialIcons name="account-balance-wallet" size={24} color={focused && "#523CF8"} />
@@ -66,7 +66,7 @@ export function TabNavigator() {
 
       <Tab.Screen
         name="DemoCommunity"
-        component={WelcomeScreen}
+        component={AccountHistoryScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             // <Ionicons name="card" size={24} color={focused && "#523CF8"} />
@@ -83,8 +83,8 @@ export function TabNavigator() {
       />
 
       <Tab.Screen
-        name="DemoPodcastList"
-        component={WelcomeScreen}
+        name="AccountHistoryScreen"
+        component={AccountHistoryScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             // <Feather name="bar-chart-2" size={24} color={focused && "#523CF8"} />
@@ -102,7 +102,7 @@ export function TabNavigator() {
 
       <Tab.Screen
         name="DemoDebug"
-        component={WelcomeScreen}
+        component={AccountHistoryScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             // <Entypo name="text-document-inverted" size={24} color={focused && "#523CF8"} />
