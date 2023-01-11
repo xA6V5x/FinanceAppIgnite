@@ -23,7 +23,12 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        navigationBarColor: "#ffff",
+      }}
+    >
       <Stack.Screen name="Welcome" component={TabNavigator} />
     </Stack.Navigator>
   )

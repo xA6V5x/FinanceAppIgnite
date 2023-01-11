@@ -1,81 +1,88 @@
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
 import {
-  Text,
-} from "../components"
-import { isRTL } from "../i18n"
-import { colors, spacing } from "../theme"
+  Image,
+  ImageStyle,
+  TextStyle,
+  View,
+  ViewStyle,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native"
+import { Text } from "../components"
+import { CardsAccounts } from "../components/CardsAccounts"
+import { colors } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-const welcomeLogo = require("../../assets/images/logo.png")
-const welcomeFace = require("../../assets/images/welcome-face.png")
-
-
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(
-) {
-
+export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen() {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
+  const { bottom } = useSafeAreaInsets()
 
   return (
-    <View style={$container}>
-      <View style={$topContainer}>
-        <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
-        <Text
-          testID="welcome-heading"
-          style={$welcomeHeading}
-          tx="welcomeScreen.readyForLaunch"
-          preset="heading"
-        />
-        <Text tx="welcomeScreen.exciting" preset="subheading" />
-        <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
+    <ScrollView>
+      <View style={[$container, { paddingBottom: bottom + 90 }]}>
+        <View style={$headerContainer}>
+          <Text text="Account History" size="md" style={{ color: "#ffff" }} weight="bold" />
+          <TouchableOpacity activeOpacity={0.8} style={$settingsButton}>
+            <Image source={require("../../assets/icons/settingsLight.png")} style={$settingsIcon} />
+          </TouchableOpacity>
+        </View>
+        <CardsAccounts />
+        <View style={$cardContainer}>
+          <Text text="Current Account" size="xl" weight="bold" />
+        </View>
+        <View style={[$transactionsContainer, $bottomContainerInsets]}>
+          <Text text="Recent transactions" size="md" weight="bold" />
+        </View>
       </View>
-
-      <View style={[$bottomContainer, $bottomContainerInsets]}>
-        <Text tx="welcomeScreen.postscript" size="md" />
-      </View>
-    </View>
+    </ScrollView>
   )
 })
 
 const $container: ViewStyle = {
   flex: 1,
-  backgroundColor: colors.background,
+  alignItems: "center",
+  backgroundColor: "#523CF8",
+  paddingBottom: 150,
 }
 
-const $topContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 1,
-  flexBasis: "57%",
-  justifyContent: "center",
-  paddingHorizontal: spacing.large,
+const $headerContainer: ViewStyle = {
+  margin: 50,
+  position: "relative",
+  width: "100%",
+  alignItems: "center",
 }
 
-const $bottomContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 0,
-  flexBasis: "43%",
+const $cardContainer: ViewStyle = {
+  width: "80%",
+  borderRadius: 30,
+  padding: 10,
+  backgroundColor: "#ffff",
+}
+
+const $transactionsContainer: ViewStyle = {
+  width: "95%",
+  margin: 10,
+  padding: 10,
   backgroundColor: colors.palette.neutral100,
-  borderTopLeftRadius: 16,
-  borderTopRightRadius: 16,
-  paddingHorizontal: spacing.large,
+  borderRadius: 30,
   justifyContent: "space-around",
 }
-const $welcomeLogo: ImageStyle = {
-  height: 88,
-  width: "100%",
-  marginBottom: spacing.huge,
-}
 
-const $welcomeFace: ImageStyle = {
-  height: 169,
-  width: 269,
-  position: "absolute",
-  bottom: -47,
-  right: -80,
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
-}
+const $settingsButton = { position: "absolute", right: 0, marginRight: 15 }
 
-const $welcomeHeading: TextStyle = {
-  marginBottom: spacing.medium,
-}
+const $settingsIcon: ImageStyle = { width: 28, height: 28 }
+
+// const $welcomeFace: ImageStyle = {
+//   height: 169,
+//   width: 269,
+//   position: "absolute",
+//   bottom: -47,
+//   right: -80,
+//   transform: [{ scaleX: isRTL ? -1 : 1 }],
+// }
+
+// const $welcomeHeading: TextStyle = {
+//   marginBottom: spacing.medium,
+// }

@@ -37,10 +37,7 @@ export function TabNavigator() {
         tabBarStyle: [
           $tabBar,
           {
-            height: bottom + "13%",
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            backgroundColor: "#ffff",
+            height: bottom + 90,
           },
         ],
         tabBarActiveTintColor: colors.text,
@@ -58,8 +55,8 @@ export function TabNavigator() {
             <Image
               source={
                 focused
-                  ? require("../assets/TabBar/dashboardOn.png")
-                  : require("../assets/TabBar/dashboardOff.png")
+                  ? require("../../assets/TabBar/dashboardOn.png")
+                  : require("../../assets/TabBar/dashboardOff.png")
               }
             />
           ),
@@ -76,8 +73,8 @@ export function TabNavigator() {
             <Image
               source={
                 focused
-                  ? require("../assets/TabBar/cardOn.png")
-                  : require("../assets/TabBar/cardOff.png")
+                  ? require("../../assets/TabBar/cardOn.png")
+                  : require("../../assets/TabBar/cardOff.png")
               }
             />
           ),
@@ -94,8 +91,8 @@ export function TabNavigator() {
             <Image
               source={
                 focused
-                  ? require("../assets/TabBar/analyticsOn.png")
-                  : require("../assets/TabBar/analyticsOff.png")
+                  ? require("../../assets/TabBar/analyticsOn.png")
+                  : require("../../assets/TabBar/analyticsOff.png")
               }
             />
           ),
@@ -112,8 +109,8 @@ export function TabNavigator() {
             <Image
               source={
                 focused
-                  ? require("../assets/TabBar/paymentsOn.png")
-                  : require("../assets/TabBar/paymentsOff.png")
+                  ? require("../../assets/TabBar/paymentsOn.png")
+                  : require("../../assets/TabBar/paymentsOff.png")
               }
             />
           ),
@@ -125,12 +122,15 @@ export function TabNavigator() {
 }
 
 const $tabBar: ViewStyle = {
+  position: "absolute",
   backgroundColor: colors.background,
   borderTopColor: colors.transparent,
+  borderTopLeftRadius: 35,
+  borderTopRightRadius: 35,
 }
 
 const $tabBarItem: ViewStyle = {
-  marginTop: -5,
+  marginTop: -6,
 }
 
 const $tabBarLabel: TextStyle = {

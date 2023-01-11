@@ -37,10 +37,6 @@ export function getActiveRouteName(state: NavigationState | PartialState<Navigat
   return getActiveRouteName(route.state)
 }
 
-/**
- * Hook that handles Android back button presses and forwards those on to
- * the navigation or allows exiting the app.
- */
 export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
   // ignore if iOS ... no back button!
   if (Platform.OS === "ios") return

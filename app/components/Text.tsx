@@ -44,12 +44,6 @@ export interface TextProps extends RNTextProps {
   children?: React.ReactNode
 }
 
-/**
- * For your text displaying needs.
- * This component is a HOC over the built-in React Native one.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Text.md)
- */
 export function Text(props: TextProps) {
   const { weight, size, tx, txOptions, text, children, style: $styleOverride, ...rest } = props
 
