@@ -8,11 +8,13 @@ import Config from "../config"
 import { TabNavigator } from "./TabNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { SettingsScreen } from "../screens/SettingsScreen"
-import { TransactionsScreen } from "../screens/TransactionsScreen"
+import { TransactionScreen } from "../screens/TransactionScreen"
+import { AllTransactionsScreen } from "../screens/AllTransactionsScreen"
 
 export type AppStackParamList = {
   Welcome: undefined
-  Transactions: undefined
+  Transaction: undefined
+  AllTransactions: undefined
   Settings: undefined
 }
 
@@ -35,8 +37,9 @@ const AppStack = observer(function AppStack() {
     >
       <Stack.Screen name="Welcome" component={TabNavigator} />
       <Stack.Group screenOptions={{ presentation: "modal", animation: "slide_from_bottom" }}>
-        <Stack.Screen name="Transactions" component={TransactionsScreen} />
+        <Stack.Screen name="Transaction" component={TransactionScreen} />
       </Stack.Group>
+      <Stack.Screen name="AllTransactions" component={AllTransactionsScreen} />
       <Stack.Group screenOptions={{ presentation: "modal", animation: "slide_from_bottom" }}>
         <Stack.Screen name="Settings" component={SettingsScreen} />
       </Stack.Group>

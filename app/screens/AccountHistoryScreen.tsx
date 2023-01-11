@@ -40,7 +40,7 @@ export const AccountHistoryScreen = () => {
           </TouchableOpacity>
         </View>
         <ListAccounts />
-        <View style={[$transactionsContainer, $bottomContainerInsets]}>
+        <View style={$transactionsContainer}>
           <TouchableOpacity activeOpacity={0.8} style={$filterButton}>
             <Image source={require("../../assets/icons/filter.png")} />
           </TouchableOpacity>
@@ -48,9 +48,10 @@ export const AccountHistoryScreen = () => {
           {Transactions.map((data, index) => {
             return (
               <TouchableOpacity
+                key={index}
                 activeOpacity={0.8}
                 onPress={() => navigation.navigate("Transaction")}
-                style={{ flexDirection: "row", marginTop: 20 }}
+                style={{ flexDirection: "row", marginTop: 15 }}
               >
                 <View
                   style={{
@@ -61,22 +62,38 @@ export const AccountHistoryScreen = () => {
                     borderRadius: 10,
                   }}
                 ></View>
-                <View>
-                  <Text text={data.title} size="xs" weight="bold" />
-                  <Text text={data.date} size="xxs" style={{ color: "#C4C4C4" }} />
-                </View>
-                <View style={{ flex: 1, alignItems: "flex-end" }}>
-                  <Text
-                    text={data.type ? `+${data.amount}` : `-${data.amount}`}
-                    size="xs"
-                    weight="bold"
-                    style={{ color: data.type ? "#523CF8" : "#F76654" }}
-                  />
-                  <Text text={data.currency} size="xxs" style={{ color: "#C4C4C4" }} />
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    paddingBottom: 15,
+                    borderBottomWidth: 1,
+                    borderBottomColor: index != Transactions.length - 1 ? "#DCDCDC" : "#ffffff",
+                  }}
+                >
+                  <View>
+                    <Text text={data.title} size="xs" weight="bold" />
+                    <Text text={data.date} size="xxs" style={{ color: "#C4C4C4" }} />
+                  </View>
+                  <View style={{ flex: 1, alignItems: "flex-end" }}>
+                    <Text
+                      text={data.type ? `+${data.amount}` : `-${data.amount}`}
+                      size="xs"
+                      weight="bold"
+                      style={{ color: data.type ? "#523CF8" : "#F76654" }}
+                    />
+                    <Text text={data.currency} size="xxs" style={{ color: "#C4C4C4" }} />
+                  </View>
                 </View>
               </TouchableOpacity>
             )
           })}
+          <TouchableOpacity
+            style={{ alignItems: "center" }}
+            onPress={() => navigation.navigate("AllTransactions")}
+          >
+            <Text text="View All Transactions" style={{ color: "#523CF8" }} weight="semiBold" />
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -105,7 +122,6 @@ const $transactionsContainer: ViewStyle = {
   width: "95%",
   margin: 11,
   padding: 22,
-  paddingTop: 15,
   backgroundColor: colors.palette.neutral100,
   borderRadius: 30,
   justifyContent: "space-around",
