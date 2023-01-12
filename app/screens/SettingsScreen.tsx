@@ -1,22 +1,18 @@
 import React from "react"
-import { View, ViewStyle, ScrollView } from "react-native"
+import { View, ViewStyle, ScrollView, useColorScheme } from "react-native"
 import { Text } from "../components"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 
 export const SettingsScreen = () => {
   const { bottom } = useSafeAreaInsets()
+  const theme = useColorScheme()
 
   return (
-    <ScrollView style={$scrollContainer}>
+    <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].backgroundModal }]}>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
-          <Text
-            text="Settings"
-            size="md"
-            style={{ color: colors.palette.neutral900 }}
-            weight="bold"
-          />
+          <Text text="Settings" size="md" style={{ color: colors[theme].title }} weight="bold" />
         </View>
       </View>
     </ScrollView>

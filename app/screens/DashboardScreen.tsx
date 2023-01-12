@@ -1,14 +1,15 @@
 import React from "react"
-import { View, ViewStyle, ScrollView } from "react-native"
+import { View, ViewStyle, ScrollView, useColorScheme } from "react-native"
 import { Text } from "../components"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 
 export const DashboardScreen = () => {
   const { bottom } = useSafeAreaInsets()
+  const theme = useColorScheme()
 
   return (
-    <ScrollView style={$scrollContainer}>
+    <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].background }]}>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
           <Text
@@ -25,13 +26,11 @@ export const DashboardScreen = () => {
 
 const $scrollContainer: ViewStyle = {
   flex: 1,
-  backgroundColor: "#523CF8",
 }
 
 const $container: ViewStyle = {
   flex: 1,
   alignItems: "center",
-  backgroundColor: "#523CF8",
   paddingBottom: 150,
 }
 

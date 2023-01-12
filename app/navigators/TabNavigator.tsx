@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { AccountHistoryScreen } from "../screens"
 import { CardsScreen } from "../screens/CardsScreen"
 import { DashboardScreen } from "../screens/DashboardScreen"
-import { PaymentsScreen } from "../screens/PaymentsScreen copy"
+import { PaymentsScreen } from "../screens/PaymentsScreen"
 import { colors, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 

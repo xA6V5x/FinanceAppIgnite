@@ -1,5 +1,5 @@
 import React from "react"
-import { Image, View, ViewStyle, TouchableOpacity, TextStyle } from "react-native"
+import { Image, View, ViewStyle, TouchableOpacity, TextStyle, useColorScheme } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../components"
 import { colors } from "../theme"
@@ -11,9 +11,10 @@ export const RecentTransactions = () => {
   //   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   //   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
+  const theme = useColorScheme()
 
   return (
-    <View style={$transactionsContainer}>
+    <View style={[$transactionsContainer, { backgroundColor: colors[theme].backgroundCard }]}>
       <TouchableOpacity activeOpacity={0.8} style={$filterButton}>
         <Image source={require("../../assets/icons/filter.png")} />
       </TouchableOpacity>
@@ -37,7 +38,7 @@ export const RecentTransactions = () => {
             >
               <View>
                 <Text text={data.title} size="xs" weight="bold" />
-                <Text text={data.date} size="xxs" style={$colorGray} />
+                <Text text={data.date} size="xxs" style={{ color: colors[theme].date }} />
               </View>
               <View style={$dateAndCurrency}>
                 <Text
@@ -46,7 +47,7 @@ export const RecentTransactions = () => {
                   weight="bold"
                   style={{ color: data.type ? "#523CF8" : "#F76654" }}
                 />
-                <Text text={data.currency} size="xxs" style={$colorGray} />
+                <Text text={data.currency} size="xxs" style={{ color: colors[theme].date }} />
               </View>
             </View>
           </TouchableOpacity>
@@ -63,7 +64,6 @@ const $transactionsContainer: ViewStyle = {
   width: "92%",
   margin: 11,
   padding: 22,
-  backgroundColor: colors.palette.neutral100,
   borderRadius: 30,
   justifyContent: "space-around",
 }
@@ -99,8 +99,6 @@ const $infoTransactionContainer: ViewStyle = {
   paddingBottom: 15,
   borderBottomWidth: 1,
 }
-
-const $colorGray: TextStyle = { color: "#C4C4C4" }
 
 const $colorPurple: TextStyle = { color: "#523CF8" }
 

@@ -38,6 +38,25 @@ const palette = {
 } as const
 
 export const colors = {
+  light: {
+    background: "#523CF8",
+    backgroundModal: "#FEFEFE",
+    backgroundCard: "#ffff",
+    title: "#16110D",
+    words: "#16110D",
+    date: "#C4C4C4",
+    separationBar: "#DCDCDC",
+  },
+
+  dark: {
+    background: "#16110D",
+    backgroundCard: "#2F2E33",
+    backgroundModal: "#16110D",
+    title: "#FEFEFE",
+    words: "#646464",
+    date: "#646464",
+    separationBar: "#646464",
+  },
   /**
    * The palette is available to use, but prefer using the name.
    * This is only included for rare, one-off cases. Try to use

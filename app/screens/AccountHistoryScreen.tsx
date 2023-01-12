@@ -23,7 +23,7 @@ export const AccountHistoryScreen = () => {
   const theme = useColorScheme()
 
   return (
-    <ScrollView style={[$scrollContainer, { backgroundColor: "#523CF8" }]}>
+    <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].background }]}>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
           <Text

@@ -1,20 +1,21 @@
 import React from "react"
-import { View, ViewStyle, ScrollView } from "react-native"
+import { View, ViewStyle, ScrollView, useColorScheme } from "react-native"
 import { Text } from "../components"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 
 export const AllTransactionsScreen = () => {
   const { bottom } = useSafeAreaInsets()
+  const theme = useColorScheme()
 
   return (
-    <ScrollView style={$scrollContainer}>
+    <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].backgroundCard }]}>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
           <Text
             text="Transactions"
             size="md"
-            style={{ color: colors.palette.neutral900 }}
+            style={{ color: colors[theme].title }}
             weight="bold"
           />
         </View>
@@ -25,13 +26,11 @@ export const AllTransactionsScreen = () => {
 
 const $scrollContainer: ViewStyle = {
   flex: 1,
-  backgroundColor: "#FEFEFE",
 }
 
 const $container: ViewStyle = {
   flex: 1,
   alignItems: "center",
-  backgroundColor: "#FEFEFE",
   paddingBottom: 150,
 }
 
