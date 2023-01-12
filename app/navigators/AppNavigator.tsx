@@ -10,6 +10,7 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { SettingsScreen } from "../screens/SettingsScreen"
 import { TransactionScreen } from "../screens/TransactionScreen"
 import { AllTransactionsScreen } from "../screens/AllTransactionsScreen"
+import { colors } from "../theme"
 
 export type AppStackParamList = {
   Welcome: undefined
@@ -28,11 +29,12 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreen
 const Stack = createNativeStackNavigator<AppStackParamList>()
 
 const AppStack = observer(function AppStack() {
+  const theme = useColorScheme()
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        navigationBarColor: "#ffff",
+        navigationBarColor: colors[theme].backgroundCard,
       }}
     >
       <Stack.Screen name="Welcome" component={TabNavigator} />

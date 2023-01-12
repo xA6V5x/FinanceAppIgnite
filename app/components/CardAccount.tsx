@@ -1,29 +1,43 @@
 import React from "react"
-import { Image, View, ViewStyle, TouchableOpacity, ImageStyle, TextStyle } from "react-native"
+import {
+  Image,
+  View,
+  ViewStyle,
+  TouchableOpacity,
+  ImageStyle,
+  useColorScheme,
+  TextStyle,
+} from "react-native"
 import { Text } from "./Text"
 import { colors } from "../theme"
 
 export const CardAccount = () => {
+  const theme = useColorScheme()
   return (
-    <View style={$card}>
+    <View style={[$card, { backgroundColor: colors[theme].backgroundCard }]}>
       <TouchableOpacity activeOpacity={0.8} style={$moreButton}>
         <Image source={require("../../assets/carousel/more.png")} style={$settingsIcon} />
       </TouchableOpacity>
-      <Text text="Current Account" size="xl" weight="bold" />
-      <Text text="1234-4567-3543-3543" size="xs" weight="bold" />
+      <Text text="Current Account" size="xl" weight="bold" style={{ color: colors[theme].title }} />
+      <Text
+        text="1234-4567-3543-3543"
+        size="xs"
+        weight="bold"
+        style={{ color: colors[theme].words }}
+      />
       <View style={$currency}>
         <View style={$EUR}>
           <Text text="EUR" size="xs" style={{ color: colors.palette.neutral100 }} />
         </View>
         <View style={$USD}>
-          <Text text="USD" size="xs" weight="bold" />
+          <Text text="USD" size="xs" weight="bold" style={{ color: colors[theme].words }} />
         </View>
         <View style={$GBP}>
-          <Text text="GBP" size="xs" weight="bold" />
+          <Text text="GBP" size="xs" weight="bold" style={{ color: colors[theme].words }} />
         </View>
       </View>
-      <Text text="76.451,00" size="xxl" weight="bold" />
-      <Text text="Current balance" size="md" />
+      <Text text="76.451,00" size="xxl" weight="bold" style={{ color: colors[theme].title }} />
+      <Text text="Current balance" size="md" style={{ color: colors[theme].title }} />
     </View>
   )
 }
@@ -32,7 +46,6 @@ const $card: ViewStyle = {
   width: "85%",
   borderRadius: 30,
   padding: 15,
-  backgroundColor: "#FEFEFE",
 }
 
 const $moreButton: ViewStyle = {

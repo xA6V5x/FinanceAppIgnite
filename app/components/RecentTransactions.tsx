@@ -18,7 +18,12 @@ export const RecentTransactions = () => {
       <TouchableOpacity activeOpacity={0.8} style={$filterButton}>
         <Image source={require("../../assets/icons/filter.png")} />
       </TouchableOpacity>
-      <Text text="Recent transactions" size="md" weight="bold" />
+      <Text
+        text="Recent transactions"
+        size="md"
+        weight="bold"
+        style={{ color: colors[theme].title }}
+      />
       {Transactions.map((data, index) => {
         return (
           <TouchableOpacity
@@ -33,11 +38,21 @@ export const RecentTransactions = () => {
             <View
               style={[
                 $infoTransactionContainer,
-                { borderBottomColor: index != Transactions.length - 1 ? "#DCDCDC" : "#ffffff" },
+                {
+                  borderBottomColor:
+                    index != Transactions.length - 1
+                      ? colors[theme].separationBar
+                      : colors[theme].separationBarNone,
+                },
               ]}
             >
               <View>
-                <Text text={data.title} size="xs" weight="bold" />
+                <Text
+                  text={data.title}
+                  size="xs"
+                  weight="bold"
+                  style={{ color: colors[theme].title }}
+                />
                 <Text text={data.date} size="xxs" style={{ color: colors[theme].date }} />
               </View>
               <View style={$dateAndCurrency}>
