@@ -1,7 +1,7 @@
 import { BottomTabScreenProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { CompositeScreenProps } from "@react-navigation/native"
 import React from "react"
-import { Image, TextStyle, ViewStyle } from "react-native"
+import { Image, TextStyle, ViewStyle, useColorScheme } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { AccountHistoryScreen } from "../screens"
 import { CardsScreen } from "../screens/CardsScreen"
@@ -31,6 +31,7 @@ const Tab = createBottomTabNavigator<DemoTabParamList>()
 
 export function TabNavigator() {
   const { bottom } = useSafeAreaInsets()
+  const theme = useColorScheme()
 
   return (
     <Tab.Navigator
@@ -41,6 +42,7 @@ export function TabNavigator() {
           $tabBar,
           {
             height: bottom + 90,
+            backgroundColor: colors[theme].backgroundCard,
           },
         ],
         tabBarActiveTintColor: colors.text,
@@ -126,7 +128,6 @@ export function TabNavigator() {
 
 const $tabBar: ViewStyle = {
   position: "absolute",
-  backgroundColor: colors.background,
   borderTopColor: colors.transparent,
   borderTopLeftRadius: 35,
   borderTopRightRadius: 35,
