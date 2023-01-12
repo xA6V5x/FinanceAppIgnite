@@ -38,7 +38,7 @@ const palette = {
 } as const
 
 export const colors = {
-  dark: {
+  light: {
     background: "#523CF8",
     backgroundModal: "#FEFEFE",
     backgroundCard: "#ffff",
@@ -49,7 +49,7 @@ export const colors = {
     separationBarNone: "#ffff",
   },
 
-  light: {
+  dark: {
     background: "#16110D",
     backgroundCard: "#2F2E33",
     backgroundModal: "#16110D",

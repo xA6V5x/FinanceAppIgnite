@@ -21,13 +21,11 @@ export const SettingsScreen = () => {
 
 const $scrollContainer: ViewStyle = {
   flex: 1,
-  backgroundColor: "#FEFEFE",
 }
 
 const $container: ViewStyle = {
   flex: 1,
   alignItems: "center",
-  backgroundColor: "#FEFEFE",
   paddingBottom: 150,
 }
 
