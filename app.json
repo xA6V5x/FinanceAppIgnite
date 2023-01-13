@@ -2,6 +2,7 @@
   "name": "FinanceAppIgnite",
   "displayName": "FinanceAppIgnite",
   "expo": {
+    "userInterfaceStyle": "automatic",
     "name": "FinanceAppIgnite",
     "slug": "FinanceAppIgnite",
     "scheme": "financeappignite",
@@ -19,6 +20,7 @@
     "jsEngine": "hermes",
     "assetBundlePatterns": ["**/*"],
     "android": {
+      "userInterfaceStyle": "automatic",
       "icon": "./assets/logo/mercury.png",
       "package": "com.financeappignite",
       "adaptiveIcon": {
@@ -32,6 +34,7 @@
       }
     },
     "ios": {
+      "userInterfaceStyle": "automatic",
       "icon": "./assets/logo/mercury.png",
       "supportsTablet": true,
       "bundleIdentifier": "com.financeappignite",
