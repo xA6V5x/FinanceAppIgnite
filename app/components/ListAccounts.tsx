@@ -57,15 +57,18 @@ export const ListAccounts = () => {
           horizontal={true}
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          onScroll={Animated.event([
-            {
-              nativeEvent: {
-                contentOffset: {
-                  x: scrollX,
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: scrollX,
+                  },
                 },
               },
-            },
-          ])}
+            ],
+            { useNativeDriver: false },
+          )}
           scrollEventThrottle={1}
         >
           {accounts.map((account, accountIndex) => {
