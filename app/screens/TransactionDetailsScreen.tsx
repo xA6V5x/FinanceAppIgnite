@@ -4,7 +4,7 @@ import { Text } from "../components"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 
-export const TransactionScreen = () => {
+export const TransactionDetailsScreen = () => {
   const { bottom } = useSafeAreaInsets()
   const theme = useColorScheme()
 

@@ -7,8 +7,7 @@ import { colors } from "../theme"
 // import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 // import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { CardTransaction } from "./CardTransaction"
-
-import { Transactions } from "../services/api/Routes"
+import { ButtonViewAllTransactions } from "./ButtonViewAllTransactions"
 
 type TransactionsProps = {
   type: boolean
@@ -30,9 +29,9 @@ export const RecentTransactions = () => {
   useEffect(() => {
     try {
       ;(async () => {
-        // const transactionsData = await axios.get("/Transactions")
-        // setTransactions(transactionsData.data.Transactions)
-        setTransactions(Transactions)
+        await axios.get("/transactions").then(function (response) {
+          setTransactions(response.data.transactions)
+        })
       })()
     } catch (error) {
       console.log(error)
@@ -70,13 +69,7 @@ export const RecentTransactions = () => {
           </TouchableOpacity>
         )
       })}
-      <TouchableOpacity style={$center} onPress={() => navigation.navigate("AllTransactions")}>
-        <Text
-          text="View All Transactions"
-          style={{ color: colors.palette.purple }}
-          weight="semiBold"
-        />
-      </TouchableOpacity>
+      <ButtonViewAllTransactions />
     </View>
   )
 }
@@ -101,5 +94,3 @@ const $filterButton: ViewStyle = {
   borderRadius: 50,
   zIndex: 100,
 }
-
-const $center: ViewStyle = { alignItems: "center" }

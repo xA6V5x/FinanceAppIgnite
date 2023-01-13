@@ -10,8 +10,6 @@ import {
 } from "react-native"
 import { CardAccount } from "./CardAccount"
 
-import { Accounts } from "../services/api/Routes"
-
 type AccountsProps = {
   id: string
   currentBalance: string | number
@@ -27,9 +25,9 @@ export const ListAccounts = () => {
   useEffect(() => {
     try {
       ;(async () => {
-        // const accountsData = await axios.get("/Accounts")
-        // setAccounts(accountsData.data.Accounts)
-        setAccounts(Accounts)
+        await axios.get("/accounts").then(function (response) {
+          setAccounts(response.data.accounts)
+        })
       })()
     } catch (error) {
       console.log(error)

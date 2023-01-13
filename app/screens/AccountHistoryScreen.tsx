@@ -16,11 +16,25 @@ import { colors } from "../theme"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { RecentTransactions } from "../components/RecentTransactions"
 
+import axios from "axios"
+import MockAdapter from "axios-mock-adapter"
+import { Accounts, Transactions } from "../services/api/infoRoutes"
+
 export const AccountHistoryScreen = () => {
   // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
   const theme = useColorScheme()
+
+  const mock = new MockAdapter(axios)
+
+  mock.onGet("/accounts").reply(200, {
+    accounts: Accounts,
+  })
+
+  mock.onGet("/transactions").reply(200, {
+    transactions: Transactions,
+  })
 
   return (
     <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].background }]}>

@@ -1,12 +1,12 @@
 import axios from "axios"
+import MockAdapter from "axios-mock-adapter"
 import React, { useEffect, useState } from "react"
 import { View, ViewStyle, ScrollView, useColorScheme } from "react-native"
 import { Text } from "../components"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 import { CardTransaction } from "../components/CardTransaction"
-
-import { AllTransactions } from "../services/api/Routes"
+import { AllTransactions } from "../services/api/infoRoutes"
 
 type AllTransactionsProps = {
   type: boolean
@@ -23,15 +23,21 @@ export const AllTransactionsScreen = () => {
 
   const [allTransactions, setAllTransactions] = useState<AllTransactionsProps>([])
 
+  const mock = new MockAdapter(axios)
+
+  mock.onGet("/allTransactions").reply(200, {
+    allTransactions: AllTransactions,
+  })
+
   useEffect(() => {
     try {
       ;(async () => {
-        // const transactionsData = await axios.get("/AllTransactions")
-        // setAllTransactions(transactionsData.data.AllTransactions)
-        setAllTransactions(AllTransactions)
+        await axios.get("/allTransactions").then(function (response) {
+          setAllTransactions(response.data.allTransactions)
+        })
       })()
     } catch (error) {
-      console.log(error)
+      console.log("Error in Axios AllTransactions")
     }
   }, [])
 
