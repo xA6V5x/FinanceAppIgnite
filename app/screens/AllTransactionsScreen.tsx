@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 import { CardTransaction } from "../components/CardTransaction"
 
-import { Transactions } from "../services/api/Routes"
+import { AllTransactions } from "../services/api/Routes"
 
 type AllTransactionsProps = {
   type: boolean
@@ -28,7 +28,7 @@ export const AllTransactionsScreen = () => {
       ;(async () => {
         // const transactionsData = await axios.get("/AllTransactions")
         // setAllTransactions(transactionsData.data.AllTransactions)
-        setAllTransactions(Transactions)
+        setAllTransactions(AllTransactions)
       })()
     } catch (error) {
       console.log(error)
