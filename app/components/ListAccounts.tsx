@@ -1,4 +1,5 @@
-import React, { useRef } from "react"
+import axios from "axios"
+import React, { useEffect, useRef, useState } from "react"
 import {
   SafeAreaView,
   ScrollView,
@@ -9,19 +10,36 @@ import {
 } from "react-native"
 import { CardAccount } from "./CardAccount"
 
-const CurrentsAccounts = new Array(4).fill(
-  "https://images.unsplash.com/photo-1556740749-887f6717d7e4",
-)
+import { Accounts } from "../services/api/Routes"
+
+type AccountsProps = {
+  id: string
+  currentBalance: string | number
+}[]
 
 export const ListAccounts = () => {
   const scrollX = useRef(new Animated.Value(0)).current
 
   const { width: windowWidth } = useWindowDimensions()
 
+  const [accounts, setAccounts] = useState<AccountsProps>([])
+
+  useEffect(() => {
+    try {
+      ;(async () => {
+        // const accountsData = await axios.get("/Accounts")
+        // setAccounts(accountsData.data.Accounts)
+        setAccounts(Accounts)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
   return (
     <SafeAreaView style={$container}>
       <View style={$indicatorContainer}>
-        {CurrentsAccounts.map((image, indexCard) => {
+        {accounts.map((account, indexCard) => {
           const width = scrollX.interpolate({
             inputRange: [
               windowWidth * (indexCard - 1),
@@ -50,7 +68,7 @@ export const ListAccounts = () => {
           ])}
           scrollEventThrottle={1}
         >
-          {CurrentsAccounts.map((account, accountIndex) => {
+          {accounts.map((account, accountIndex) => {
             return (
               <View
                 style={[
@@ -61,7 +79,7 @@ export const ListAccounts = () => {
                 ]}
                 key={accountIndex}
               >
-                <CardAccount />
+                <CardAccount id={account.id} currentBalance={account.currentBalance} />
               </View>
             )
           })}

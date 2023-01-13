@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import axios from "axios"
 import { Image, View, ViewStyle, TouchableOpacity, useColorScheme } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../components"
@@ -7,13 +8,36 @@ import { colors } from "../theme"
 // import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { CardTransaction } from "./CardTransaction"
 
-import Transactions from "../infoJson/recentTransactions.js"
+import { Transactions } from "../services/api/Routes"
+
+type TransactionsProps = {
+  type: boolean
+  icon: any
+  title: string
+  date: string
+  amount: string | number
+  currency: string
+}[]
 
 export const RecentTransactions = () => {
   //   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   //   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
   const theme = useColorScheme()
+
+  const [transactions, setTransactions] = useState<TransactionsProps>([])
+
+  useEffect(() => {
+    try {
+      ;(async () => {
+        // const transactionsData = await axios.get("/Transactions")
+        // setTransactions(transactionsData.data.Transactions)
+        setTransactions(Transactions)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   return (
     <View style={[$transactionsContainer, { backgroundColor: colors[theme].backgroundCard }]}>
@@ -26,7 +50,7 @@ export const RecentTransactions = () => {
         weight="bold"
         style={{ color: colors[theme].title }}
       />
-      {Transactions.map((data, index) => {
+      {transactions.map((data, index) => {
         return (
           <TouchableOpacity
             key={index}
@@ -35,7 +59,7 @@ export const RecentTransactions = () => {
           >
             <CardTransaction
               index={index}
-              manyTransaction={Transactions.length}
+              manyTransaction={transactions.length}
               type={data.type}
               icon={data.icon}
               title={data.title}

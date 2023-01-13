@@ -11,20 +11,18 @@ import {
 import { Text } from "./Text"
 import { colors } from "../theme"
 
-export const CardAccount = () => {
+type CardAccountProps = { id: string; currentBalance: string | number }
+
+export const CardAccount = ({ id, currentBalance }: CardAccountProps) => {
   const theme = useColorScheme()
+
   return (
     <View style={[$card, { backgroundColor: colors[theme].backgroundCard }]}>
       <TouchableOpacity activeOpacity={0.8} style={$moreButton}>
         <Image source={require("../../assets/carousel/more.png")} style={$settingsIcon} />
       </TouchableOpacity>
       <Text text="Current Account" size="xl" weight="bold" style={{ color: colors[theme].title }} />
-      <Text
-        text="1234-4567-3543-3543"
-        size="xs"
-        weight="bold"
-        style={{ color: colors[theme].words }}
-      />
+      <Text text={`${id}`} size="xs" weight="bold" style={{ color: colors[theme].words }} />
       <View style={$currency}>
         <View style={$EUR}>
           <Text
@@ -41,14 +39,19 @@ export const CardAccount = () => {
           <Text text="GBP" size="xs" weight="bold" style={{ color: colors[theme].words }} />
         </View>
       </View>
-      <Text text="76.451,00" size="xxl" weight="bold" style={{ color: colors[theme].title }} />
+      <Text
+        text={`${currentBalance}`}
+        size="xxl"
+        weight="bold"
+        style={{ color: colors[theme].title }}
+      />
       <Text text="Current balance" size="md" style={{ color: colors[theme].title }} />
     </View>
   )
 }
 
 const $card: ViewStyle = {
-  width: "85%",
+  width: "86%",
   borderRadius: 30,
   padding: 15,
 }
