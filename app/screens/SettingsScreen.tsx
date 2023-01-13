@@ -10,7 +10,7 @@ export const SettingsScreen = () => {
 
   return (
     <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].backgroundModal }]}>
-      <View style={[$container, { paddingBottom: bottom + 90 }]}>
+      <View style={[$container, { paddingBottom: bottom }]}>
         <View style={$headerContainer}>
           <Text text="Settings" size="md" style={{ color: colors[theme].title }} weight="bold" />
         </View>

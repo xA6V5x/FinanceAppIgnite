@@ -1,15 +1,39 @@
-import React from "react"
+import axios from "axios"
+import React, { useEffect, useState } from "react"
 import { View, ViewStyle, ScrollView, useColorScheme } from "react-native"
 import { Text } from "../components"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 import { CardTransaction } from "../components/CardTransaction"
 
-import Transactions from "../infoJson/recentTransactions.js"
+import { Transactions } from "../services/api/Routes"
+
+type AllTransactionsProps = {
+  type: boolean
+  icon: any
+  title: string
+  date: string
+  amount: string | number
+  currency: string
+}[]
 
 export const AllTransactionsScreen = () => {
   const { bottom } = useSafeAreaInsets()
   const theme = useColorScheme()
+
+  const [allTransactions, setAllTransactions] = useState<AllTransactionsProps>([])
+
+  useEffect(() => {
+    try {
+      ;(async () => {
+        // const transactionsData = await axios.get("/AllTransactions")
+        // setAllTransactions(transactionsData.data.AllTransactions)
+        setAllTransactions(Transactions)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
 
   return (
     <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].backgroundCard }]}>
@@ -23,12 +47,12 @@ export const AllTransactionsScreen = () => {
           />
         </View>
         <View style={$allTransactions}>
-          {Transactions.map((data, index) => {
+          {allTransactions.map((data, index) => {
             return (
               <CardTransaction
                 key={index}
                 index={index}
-                manyTransaction={Transactions.length}
+                manyTransaction={allTransactions.length}
                 type={data.type}
                 icon={data.icon}
                 title={data.title}

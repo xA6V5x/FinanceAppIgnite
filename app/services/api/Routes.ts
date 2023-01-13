@@ -1,10 +1,10 @@
-import car from "../../assets/transactions/car.png"
-import restaurant from "../../assets/transactions/restaurant.png"
-import construction from "../../assets/transactions/construction.png"
-import person from "../../assets/transactions/person.png"
-import travels from "../../assets/transactions/travels.png"
+import car from "../../../assets/transactions/car.png"
+import restaurant from "../../../assets/transactions/restaurant.png"
+import construction from "../../../assets/transactions/construction.png"
+import person from "../../../assets/transactions/person.png"
+import travels from "../../../assets/transactions/travels.png"
 
-export default [
+export const Transactions = [
   {
     type: false,
     icon: car,
@@ -44,5 +44,24 @@ export default [
     date: "03rd May, 12:06",
     amount: "11.215,00",
     currency: "USD",
+  },
+]
+
+export const Accounts = [
+  {
+    id: "1234-4567-3456-3456",
+    currentBalance: "76.451,00",
+  },
+  {
+    id: "1234-4567-3456-3457",
+    currentBalance: "8.569.00",
+  },
+  {
+    id: "1234-4567-3456-3458",
+    currentBalance: "50.513,00",
+  },
+  {
+    id: "1234-4567-3456-3459",
+    currentBalance: "751.216,00",
   },
 ]
