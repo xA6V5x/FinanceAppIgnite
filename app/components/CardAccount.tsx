@@ -27,7 +27,12 @@ export const CardAccount = () => {
       />
       <View style={$currency}>
         <View style={$EUR}>
-          <Text text="EUR" size="xs" style={{ color: colors.palette.neutral100 }} />
+          <Text
+            text="EUR"
+            size="xs"
+            weight="semiBold"
+            style={{ color: colors.palette.neutral100 }}
+          />
         </View>
         <View style={$USD}>
           <Text text="USD" size="xs" weight="bold" style={{ color: colors[theme].words }} />
