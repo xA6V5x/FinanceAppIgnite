@@ -9,7 +9,7 @@ export const TransactionScreen = () => {
   const theme = useColorScheme()
 
   return (
-    <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].background }]}>
+    <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].backgroundModal }]}>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
           <Text

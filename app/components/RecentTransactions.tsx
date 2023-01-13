@@ -1,10 +1,12 @@
 import React from "react"
-import { Image, View, ViewStyle, TouchableOpacity, TextStyle, useColorScheme } from "react-native"
+import { Image, View, ViewStyle, TouchableOpacity, useColorScheme } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../components"
 import { colors } from "../theme"
 // import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 // import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { CardTransaction } from "./CardTransaction"
+
 import Transactions from "../infoJson/recentTransactions.js"
 
 export const RecentTransactions = () => {
@@ -30,46 +32,26 @@ export const RecentTransactions = () => {
             key={index}
             activeOpacity={0.8}
             onPress={() => navigation.navigate("Transaction")}
-            style={$transactionButton}
           >
-            <View style={$iconContainer}>
-              <Image source={data.icon} />
-            </View>
-            <View
-              style={[
-                $infoTransactionContainer,
-                {
-                  borderBottomColor:
-                    index != Transactions.length - 1
-                      ? colors[theme].separationBar
-                      : colors[theme].separationBarNone,
-                },
-              ]}
-            >
-              <View>
-                <Text
-                  text={data.title}
-                  size="xs"
-                  weight="bold"
-                  style={{ color: colors[theme].title }}
-                />
-                <Text text={data.date} size="xxs" style={{ color: colors[theme].date }} />
-              </View>
-              <View style={$dateAndCurrency}>
-                <Text
-                  text={data.type ? `+${data.amount}` : `-${data.amount}`}
-                  size="xs"
-                  weight="bold"
-                  style={{ color: data.type ? "#523CF8" : "#F76654" }}
-                />
-                <Text text={data.currency} size="xxs" style={{ color: colors[theme].date }} />
-              </View>
-            </View>
+            <CardTransaction
+              index={index}
+              manyTransaction={Transactions.length}
+              type={data.type}
+              icon={data.icon}
+              title={data.title}
+              date={data.date}
+              amount={data.amount}
+              currency={data.currency}
+            />
           </TouchableOpacity>
         )
       })}
       <TouchableOpacity style={$center} onPress={() => navigation.navigate("AllTransactions")}>
-        <Text text="View All Transactions" style={$colorPurple} weight="semiBold" />
+        <Text
+          text="View All Transactions"
+          style={{ color: colors.palette.purple }}
+          weight="semiBold"
+        />
       </TouchableOpacity>
     </View>
   )
@@ -95,28 +77,5 @@ const $filterButton: ViewStyle = {
   borderRadius: 50,
   zIndex: 100,
 }
-
-const $transactionButton: ViewStyle = { flexDirection: "row", marginTop: 15 }
-
-const $iconContainer: ViewStyle = {
-  marginRight: 15,
-  width: 35,
-  height: 35,
-  backgroundColor: "#F76654",
-  borderRadius: 10,
-  justifyContent: "center",
-  alignItems: "center",
-}
-
-const $infoTransactionContainer: ViewStyle = {
-  flex: 1,
-  flexDirection: "row",
-  paddingBottom: 15,
-  borderBottomWidth: 1,
-}
-
-const $colorPurple: TextStyle = { color: "#523CF8" }
-
-const $dateAndCurrency: ViewStyle = { flex: 1, alignItems: "flex-end" }
 
 const $center: ViewStyle = { alignItems: "center" }

@@ -1,6 +1,8 @@
 // TODO: write documentation for colors and palette in own markdown file and add links from here
 
 const palette = {
+  purple: "#523CF8",
+
   neutral100: "#FFFFFF",
   neutral200: "#F4F2F1",
   neutral300: "#D7CEC9",

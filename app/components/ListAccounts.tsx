@@ -9,7 +9,9 @@ import {
 } from "react-native"
 import { CardAccount } from "./CardAccount"
 
-const images = new Array(4).fill("https://images.unsplash.com/photo-1556740749-887f6717d7e4")
+const CurrentsAccounts = new Array(4).fill(
+  "https://images.unsplash.com/photo-1556740749-887f6717d7e4",
+)
 
 export const ListAccounts = () => {
   const scrollX = useRef(new Animated.Value(0)).current
@@ -19,7 +21,7 @@ export const ListAccounts = () => {
   return (
     <SafeAreaView style={$container}>
       <View style={$indicatorContainer}>
-        {images.map((image, indexCard) => {
+        {CurrentsAccounts.map((image, indexCard) => {
           const width = scrollX.interpolate({
             inputRange: [
               windowWidth * (indexCard - 1),
@@ -48,7 +50,7 @@ export const ListAccounts = () => {
           ])}
           scrollEventThrottle={1}
         >
-          {images.map((image, imageIndex) => {
+          {CurrentsAccounts.map((account, accountIndex) => {
             return (
               <View
                 style={[
@@ -57,7 +59,7 @@ export const ListAccounts = () => {
                     width: windowWidth,
                   },
                 ]}
-                key={imageIndex}
+                key={accountIndex}
               >
                 <CardAccount />
               </View>

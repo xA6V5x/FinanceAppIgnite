@@ -16,7 +16,7 @@ export default [
   {
     type: false,
     icon: restaurant,
-    title: "'Francois' Restaurant Dinner",
+    title: "'Francois' Dinner",
     date: "15th May, 20:56",
     amount: "1.158,00",
     currency: "EUR",
