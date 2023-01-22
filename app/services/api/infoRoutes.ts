@@ -17,10 +17,6 @@ export const Accounts = [
     id: "1234-4567-3456-3458",
     currentBalance: "50.513,00",
   },
-  {
-    id: "1234-4567-3456-3459",
-    currentBalance: "751.216,00",
-  },
 ]
 
 export const Transactions = [

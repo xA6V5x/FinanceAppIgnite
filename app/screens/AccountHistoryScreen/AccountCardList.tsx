@@ -1,44 +1,55 @@
 import React, { useState } from "react"
-import { ListRenderItem, View, ViewStyle, FlatList, useWindowDimensions } from "react-native"
+import {
+  ListRenderItem,
+  View,
+  ViewStyle,
+  FlatList,
+  useWindowDimensions,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from "react-native"
 import { AccountCard } from "./AccountCard"
-import { colors } from "../../theme"
 
 type AccountCardListProps = {
   accounts: { id: string; currentBalance: string | number }[]
+  onChangeCurrentAccount: (n: number) => void
 }
 
-export const AccountCardList = ({ accounts }: AccountCardListProps) => {
+type AccountProps = {
+  id: string
+  currentBalance: string | number
+}
+
+export const AccountCardList = ({ accounts, onChangeCurrentAccount }: AccountCardListProps) => {
   const { width: windowWidth } = useWindowDimensions()
 
-  const renderItem: ListRenderItem<AccountCardListProps> = ({ item: account }) => (
-    // <AccountCard id={account.id} currentBalance={account.currentBalance} />
-    <View
-      style={{
-        backgroundColor: "red",
-        height: 200,
-        width: 200,
-        borderWidth: 1,
-        borderColor: "black",
-      }}
-    ></View>
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const index = Math.ceil(event.nativeEvent.contentOffset.x / windowWidth)
+    setCurrentIndex(index)
+    onChangeCurrentAccount(index)
+  }
+
+  const renderItem: ListRenderItem<AccountProps> = ({ item: account }) => (
+    <AccountCard id={account.id} currentBalance={account.currentBalance} />
   )
 
   return (
-    <View>
-      <View style={{ flexDirection: "row" }}>
+    <View style={$container}>
+      <View style={$indicatorContainer}>
         {accounts.map((account, index) => (
-          <View key={index} style={$normalDot} />
+          <View key={index} style={index === currentIndex ? $selectDot : $normalDot} />
         ))}
       </View>
       <FlatList
-        style={{ height: 10 }}
         showsHorizontalScrollIndicator={false}
-        snapToInterval={windowWidth - 30}
+        snapToInterval={(windowWidth * 85) / 100}
         decelerationRate="fast"
         horizontal={true}
         data={accounts}
         renderItem={renderItem}
-        // onMomentumScrollEnd={onMomentumScrollEnd}
+        onMomentumScrollEnd={onMomentumScrollEnd}
         keyExtractor={(Account) => Account.id}
       />
     </View>
@@ -51,14 +62,10 @@ const $container: ViewStyle = {
   justifyContent: "center",
 }
 
-const $scrollContainer: ViewStyle = {
+const $indicatorContainer: ViewStyle = {
+  flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
-}
-
-const $cardContainer: ViewStyle = {
-  justifyContent: "center",
-  alignItems: "center",
 }
 
 const $normalDot: ViewStyle = {
@@ -77,10 +84,4 @@ const $selectDot: ViewStyle = {
   borderRadius: 10,
   borderWidth: 2.5,
   borderColor: "#FEFEFE",
-}
-
-const $indicatorContainer: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
 }

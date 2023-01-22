@@ -29,6 +29,7 @@ export const AccountHistoryScreen = () => {
   // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
+  const [currentAccount, setCurrectAccount] = useState<number>(0)
   const theme = useColorScheme()
 
   const mock = new MockAdapter(axios)
@@ -76,7 +77,9 @@ export const AccountHistoryScreen = () => {
             />
           </TouchableOpacity>
         </View>
-        {accounts && <AccountCardList accounts={accounts} />}
+        {accounts && (
+          <AccountCardList accounts={accounts} onChangeCurrentAccount={setCurrectAccount} />
+        )}
         <RecentTransactions />
       </View>
     </ScrollView>
@@ -94,6 +97,7 @@ const $container: ViewStyle = {
 
 const $headerContainer: ViewStyle = {
   margin: 50,
+  marginBottom: 30,
   position: "relative",
   width: "100%",
   alignItems: "center",

@@ -16,7 +16,7 @@ type AccountCardProps = { id: string; currentBalance: string | number }
 
 export const AccountCard = ({ id, currentBalance }: AccountCardProps) => {
   const { width: windowWidth } = useWindowDimensions()
-  const widthCard = (87 * windowWidth) / 100
+  const widthCard = (85 * windowWidth) / 100
 
   const theme = useColorScheme()
 
@@ -55,7 +55,7 @@ export const AccountCard = ({ id, currentBalance }: AccountCardProps) => {
 }
 
 const $card: ViewStyle = {
-  height: 200,
+  marginHorizontal: 10,
   borderRadius: 30,
   padding: 15,
 }

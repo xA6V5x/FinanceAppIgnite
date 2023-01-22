@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { Image, View, ViewStyle, TouchableOpacity, useColorScheme } from "react-native"
+import {
+  Image,
+  View,
+  ViewStyle,
+  TouchableOpacity,
+  useColorScheme,
+  useWindowDimensions,
+} from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../../components"
 import { colors } from "../../theme"
@@ -19,6 +26,8 @@ type TransactionsProps = {
 }[]
 
 export const RecentTransactions = () => {
+  const { width: windowWidth } = useWindowDimensions()
+  const widthContainer = (windowWidth * 92) / 100
   //   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   //   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
@@ -39,7 +48,12 @@ export const RecentTransactions = () => {
   }, [])
 
   return (
-    <View style={[$transactionsContainer, { backgroundColor: colors[theme].backgroundCard }]}>
+    <View
+      style={[
+        $transactionsContainer,
+        { backgroundColor: colors[theme].backgroundCard, width: widthContainer },
+      ]}
+    >
       <TouchableOpacity activeOpacity={0.8} style={$filterButton}>
         <Image source={require("../../../assets/icons/filter.png")} />
       </TouchableOpacity>
@@ -75,7 +89,6 @@ export const RecentTransactions = () => {
 }
 
 const $transactionsContainer: ViewStyle = {
-  width: "92%",
   margin: 11,
   padding: 22,
   borderRadius: 30,
