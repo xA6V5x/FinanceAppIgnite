@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
   Image,
   ImageStyle,
@@ -9,16 +9,21 @@ import {
   useColorScheme,
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { Text } from "../components"
-import { ListAccounts } from "../components/ListAccounts"
-import { colors } from "../theme"
+import { Text } from "../../components"
+import { AccountCardList } from "./AccountCardList"
+import { colors } from "../../theme"
 // import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { RecentTransactions } from "../components/RecentTransactions"
+import { RecentTransactions } from "./RecentTransactions"
 
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
-import { Accounts, Transactions } from "../services/api/infoRoutes"
+import { Accounts, Transactions } from "../../services/api/infoRoutes"
+
+type AccountCardListProps = {
+  id: string
+  currentBalance: string | number
+}[]
 
 export const AccountHistoryScreen = () => {
   // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
@@ -36,6 +41,20 @@ export const AccountHistoryScreen = () => {
     transactions: Transactions,
   })
 
+  const [accounts, setAccounts] = useState<AccountCardListProps>([])
+
+  useEffect(() => {
+    try {
+      ;(async () => {
+        await axios.get("/accounts").then(function (response) {
+          setAccounts(response.data.accounts)
+        })
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
   return (
     <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].background }]}>
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
@@ -51,10 +70,13 @@ export const AccountHistoryScreen = () => {
             activeOpacity={0.8}
             style={$settingsButton}
           >
-            <Image source={require("../../assets/icons/settingsLight.png")} style={$settingsIcon} />
+            <Image
+              source={require("../../../assets/icons/settingsLight.png")}
+              style={$settingsIcon}
+            />
           </TouchableOpacity>
         </View>
-        <ListAccounts />
+        {accounts && <AccountCardList accounts={accounts} />}
         <RecentTransactions />
       </View>
     </ScrollView>

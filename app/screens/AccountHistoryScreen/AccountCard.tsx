@@ -7,19 +7,23 @@ import {
   ImageStyle,
   useColorScheme,
   TextStyle,
+  useWindowDimensions,
 } from "react-native"
-import { Text } from "./Text"
-import { colors } from "../theme"
+import { Text } from "../../components/Text"
+import { colors } from "../../theme"
 
-type CardAccountProps = { id: string; currentBalance: string | number }
+type AccountCardProps = { id: string; currentBalance: string | number }
 
-export const CardAccount = ({ id, currentBalance }: CardAccountProps) => {
+export const AccountCard = ({ id, currentBalance }: AccountCardProps) => {
+  const { width: windowWidth } = useWindowDimensions()
+  const widthCard = (87 * windowWidth) / 100
+
   const theme = useColorScheme()
 
   return (
-    <View style={[$card, { backgroundColor: colors[theme].backgroundCard }]}>
+    <View style={[$card, { backgroundColor: colors[theme].backgroundCard, width: widthCard }]}>
       <TouchableOpacity activeOpacity={0.8} style={$moreButton}>
-        <Image source={require("../../assets/carousel/more.png")} style={$settingsIcon} />
+        <Image source={require("../../../assets/carousel/more.png")} style={$settingsIcon} />
       </TouchableOpacity>
       <Text text="Current Account" size="xl" weight="bold" style={{ color: colors[theme].title }} />
       <Text text={`${id}`} size="xs" weight="bold" style={{ color: colors[theme].words }} />
@@ -51,7 +55,7 @@ export const CardAccount = ({ id, currentBalance }: CardAccountProps) => {
 }
 
 const $card: ViewStyle = {
-  width: "86%",
+  height: 200,
   borderRadius: 30,
   padding: 15,
 }

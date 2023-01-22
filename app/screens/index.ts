@@ -1,4 +1,4 @@
-export * from "./AccountHistoryScreen"
+export * from "./AccountHistoryScreen/AccountHistoryScreen"
 export * from "./AllTransactionsScreen"
 export * from "./CardsScreen"
 export * from "./TransactionDetailsScreen"

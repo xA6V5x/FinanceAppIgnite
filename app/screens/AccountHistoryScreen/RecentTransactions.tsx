@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { Image, View, ViewStyle, TouchableOpacity, useColorScheme } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { Text } from "../components"
-import { colors } from "../theme"
+import { Text } from "../../components"
+import { colors } from "../../theme"
 // import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 // import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { CardTransaction } from "./CardTransaction"
-import { ButtonViewAllTransactions } from "./ButtonViewAllTransactions"
+import { CardTransaction } from "../../components/CardTransaction"
+import { ButtonViewAllTransactions } from "../../components/ButtonViewAllTransactions"
 
 type TransactionsProps = {
   type: boolean
@@ -41,7 +41,7 @@ export const RecentTransactions = () => {
   return (
     <View style={[$transactionsContainer, { backgroundColor: colors[theme].backgroundCard }]}>
       <TouchableOpacity activeOpacity={0.8} style={$filterButton}>
-        <Image source={require("../../assets/icons/filter.png")} />
+        <Image source={require("../../../assets/icons/filter.png")} />
       </TouchableOpacity>
       <Text
         text="Recent transactions"
