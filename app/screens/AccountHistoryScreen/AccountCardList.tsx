@@ -9,6 +9,7 @@ import {
   NativeScrollEvent,
 } from "react-native"
 import { AccountCard } from "./AccountCard"
+import { Dot } from "./Dot"
 
 type AccountCardListProps = {
   accounts: { id: string; currentBalance: string | number }[]
@@ -39,7 +40,7 @@ export const AccountCardList = ({ accounts, onChangeCurrentAccount }: AccountCar
     <View style={$container}>
       <View style={$indicatorContainer}>
         {accounts.map((account, index) => (
-          <View key={index} style={index === currentIndex ? $selectDot : $normalDot} />
+          <Dot key={index} isSelected={index === currentIndex} />
         ))}
       </View>
       <FlatList
@@ -63,25 +64,9 @@ const $container: ViewStyle = {
 }
 
 const $indicatorContainer: ViewStyle = {
+  height: 15,
+  marginBottom: 15,
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
-}
-
-const $normalDot: ViewStyle = {
-  marginHorizontal: 6,
-  marginBottom: 15,
-  width: 8,
-  height: 8,
-  backgroundColor: "#FEFEFE",
-  borderRadius: 4,
-}
-
-const $selectDot: ViewStyle = {
-  marginHorizontal: 6,
-  marginBottom: 15,
-  padding: 4.5,
-  borderRadius: 10,
-  borderWidth: 2.5,
-  borderColor: "#FEFEFE",
 }
