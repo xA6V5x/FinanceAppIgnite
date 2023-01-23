@@ -45,7 +45,8 @@ export const AccountCardList = ({ accounts, onChangeCurrentAccount }: AccountCar
       </View>
       <FlatList
         showsHorizontalScrollIndicator={false}
-        snapToInterval={(windowWidth * 85) / 100}
+        snapToInterval={(windowWidth * 85) / 100 + 20}
+        snapToAlignment="center"
         decelerationRate="fast"
         horizontal={true}
         data={accounts}
