@@ -12,12 +12,13 @@ import { AccountCard } from "./AccountCard"
 import { Dot } from "./Dot"
 
 type AccountCardListProps = {
-  accounts: { id: string; currentBalance: string | number }[]
+  accounts: { id: string; name: string; currentBalance: string | number }[]
   onChangeCurrentAccount: (n: number) => void
 }
 
 type AccountProps = {
   id: string
+  name: string
   currentBalance: string | number
 }
 
@@ -33,7 +34,7 @@ export const AccountCardList = ({ accounts, onChangeCurrentAccount }: AccountCar
   }
 
   const renderItem: ListRenderItem<AccountProps> = ({ item: account }) => (
-    <AccountCard id={account.id} currentBalance={account.currentBalance} />
+    <AccountCard id={account.id} name={account.name} currentBalance={account.currentBalance} />
   )
 
   return (

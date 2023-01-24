@@ -11,10 +11,6 @@ type DotProps = {
   isSelected: boolean
 }
 
-// export const Dot = ({ isSelected }: DotProps) => {
-//   return <View style={isSelected ? $selectDot : $normalDot} />
-// }
-
 export const Dot = ({ isSelected }: DotProps) => {
   const isSelectedSharedValue = useSharedValue(1)
 

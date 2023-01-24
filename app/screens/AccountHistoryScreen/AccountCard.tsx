@@ -12,9 +12,9 @@ import {
 import { Text } from "../../components/Text"
 import { colors } from "../../theme"
 
-type AccountCardProps = { id: string; currentBalance: string | number }
+type AccountCardProps = { id: string; name: string; currentBalance: string | number }
 
-export const AccountCard = ({ id, currentBalance }: AccountCardProps) => {
+export const AccountCard = ({ id, name, currentBalance }: AccountCardProps) => {
   const { width: windowWidth } = useWindowDimensions()
   const widthCard = (85 * windowWidth) / 100
 
@@ -25,7 +25,7 @@ export const AccountCard = ({ id, currentBalance }: AccountCardProps) => {
       <TouchableOpacity activeOpacity={0.8} style={$moreButton}>
         <Image source={require("../../../assets/carousel/more.png")} style={$settingsIcon} />
       </TouchableOpacity>
-      <Text text="Current Account" size="xl" weight="bold" style={{ color: colors[theme].title }} />
+      <Text text={name} size="xl" weight="bold" style={{ color: colors[theme].title }} />
       <Text text={`${id}`} size="xs" weight="bold" style={{ color: colors[theme].words }} />
       <View style={$currency}>
         <View style={$EUR}>

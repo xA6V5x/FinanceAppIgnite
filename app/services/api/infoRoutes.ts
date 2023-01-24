@@ -7,14 +7,17 @@ import travels from "../../../assets/transactions/travels.png"
 export const Accounts = [
   {
     id: "1234-4567-3456-3456",
+    name: "Current Account",
     currentBalance: "76.451,00",
   },
   {
     id: "1234-4567-3456-3457",
+    name: "Savings",
     currentBalance: "8.569.00",
   },
   {
-    id: "1234-4567-3456-3458",
+    id: "1234-4567-3456-3488",
+    name: "Vacation",
     currentBalance: "50.513,00",
   },
 ]
