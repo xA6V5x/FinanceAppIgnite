@@ -12,13 +12,13 @@ import { useNavigation } from "@react-navigation/native"
 import { Screen, Text } from "../../components"
 import { AccountCardList } from "./AccountCardList"
 import { colors } from "../../theme"
-// import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { RecentTransactions } from "./RecentTransactions"
 
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
 import { Accounts, Transactions } from "../../services/api/infoRoutes"
+import { api } from "../../services/api"
 
 type AccountCardListProps = {
   id: string
@@ -49,13 +49,14 @@ export const AccountHistoryScreen = () => {
   mock.onGet("/transactions").reply(200, {
     transactions: Transactions,
   })
+
   // -------------------------------
 
   const [accounts, setAccounts] = useState<AccountCardListProps>([])
 
   const [transactions, setTransactions] = useState<TransactionsProps>([])
 
-  const [currentAccount, setCurrectAccount] = useState<number>(0)
+  const [activeAccountId, setActiveAccount] = useState<number>(0)
 
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false)
 
@@ -64,12 +65,15 @@ export const AccountHistoryScreen = () => {
   }, [])
 
   useEffect(() => {
-    getRecentTransactions(currentAccount)
+    getRecentTransactions(activeAccountId)
   }, [])
 
   const getAccounts = async () => {
     try {
       ;(async () => {
+        //   const { data } = await api.getAccounts()
+        //   setAccounts(data)
+        // })()
         await axios.get("/accounts").then(function (response) {
           setAccounts(response.data.accounts)
         })
@@ -79,7 +83,7 @@ export const AccountHistoryScreen = () => {
     }
   }
 
-  const getRecentTransactions = async (currentAccount) => {
+  const getRecentTransactions = async (activeAccountId: number) => {
     try {
       ;(async () => {
         await axios.get("/transactions").then(function (response) {
@@ -93,7 +97,7 @@ export const AccountHistoryScreen = () => {
 
   const refreshData = async () => {
     setIsRefreshing(true)
-    await Promise.all([fetchAccounts(), activeAccountId && fetchTransactions(activeAccountId)])
+    await Promise.all([getAccounts(), activeAccountId && getRecentTransactions(activeAccountId)])
     setIsRefreshing(false)
   }
 
@@ -104,8 +108,8 @@ export const AccountHistoryScreen = () => {
         overScrollMode: "always",
         refreshControl: (
           <RefreshControl
-            // refreshing={isRefreshing}
-            // onRefresh={refreshData}
+            refreshing={isRefreshing}
+            onRefresh={refreshData}
             tintColor="white"
             colors={["#523CF8"]}
           />
@@ -133,10 +137,10 @@ export const AccountHistoryScreen = () => {
           </TouchableOpacity>
         </View>
         {accounts && (
-          <AccountCardList accounts={accounts} onChangeCurrentAccount={setCurrectAccount} />
+          <AccountCardList accounts={accounts} onChangeCurrentAccount={setActiveAccount} />
         )}
         {transactions && (
-          <RecentTransactions transactions={transactions} currentAccount={currentAccount} />
+          <RecentTransactions transactions={transactions} currentAccount={activeAccountId} />
         )}
       </View>
     </Screen>
