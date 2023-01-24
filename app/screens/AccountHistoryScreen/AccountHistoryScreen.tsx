@@ -4,12 +4,12 @@ import {
   ImageStyle,
   View,
   ViewStyle,
-  ScrollView,
+  RefreshControl,
   TouchableOpacity,
   useColorScheme,
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
-import { Text } from "../../components"
+import { Screen, Text } from "../../components"
 import { AccountCardList } from "./AccountCardList"
 import { colors } from "../../theme"
 // import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
@@ -22,29 +22,52 @@ import { Accounts, Transactions } from "../../services/api/infoRoutes"
 
 type AccountCardListProps = {
   id: string
+  name: string
   currentBalance: string | number
+}[]
+
+type TransactionsProps = {
+  type: boolean
+  icon: any
+  title: string
+  date: string
+  amount: string | number
+  currency: string
 }[]
 
 export const AccountHistoryScreen = () => {
   // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
-  const [currentAccount, setCurrectAccount] = useState<number>(0)
   const theme = useColorScheme()
 
+  // -----------API MOCK-----------
   const mock = new MockAdapter(axios)
-
   mock.onGet("/accounts").reply(200, {
     accounts: Accounts,
   })
-
   mock.onGet("/transactions").reply(200, {
     transactions: Transactions,
   })
+  // -------------------------------
 
   const [accounts, setAccounts] = useState<AccountCardListProps>([])
 
+  const [transactions, setTransactions] = useState<TransactionsProps>([])
+
+  const [currentAccount, setCurrectAccount] = useState<number>(0)
+
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false)
+
   useEffect(() => {
+    getAccounts()
+  }, [])
+
+  useEffect(() => {
+    getRecentTransactions(currentAccount)
+  }, [])
+
+  const getAccounts = async () => {
     try {
       ;(async () => {
         await axios.get("/accounts").then(function (response) {
@@ -54,10 +77,42 @@ export const AccountHistoryScreen = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+  }
+
+  const getRecentTransactions = async (currentAccount) => {
+    try {
+      ;(async () => {
+        await axios.get("/transactions").then(function (response) {
+          setTransactions(response.data.transactions)
+        })
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const refreshData = async () => {
+    setIsRefreshing(true)
+    await Promise.all([fetchAccounts(), activeAccountId && fetchTransactions(activeAccountId)])
+    setIsRefreshing(false)
+  }
 
   return (
-    <ScrollView style={[$scrollContainer, { backgroundColor: colors[theme].background }]}>
+    <Screen
+      preset="scroll"
+      ScrollViewProps={{
+        overScrollMode: "always",
+        refreshControl: (
+          <RefreshControl
+            // refreshing={isRefreshing}
+            // onRefresh={refreshData}
+            tintColor="white"
+            colors={["#523CF8"]}
+          />
+        ),
+      }}
+      style={[$scrollContainer, { backgroundColor: colors[theme].background }]}
+    >
       <View style={[$container, { paddingBottom: bottom + 90 }]}>
         <View style={$headerContainer}>
           <Text
@@ -80,9 +135,11 @@ export const AccountHistoryScreen = () => {
         {accounts && (
           <AccountCardList accounts={accounts} onChangeCurrentAccount={setCurrectAccount} />
         )}
-        <RecentTransactions />
+        {transactions && (
+          <RecentTransactions transactions={transactions} currentAccount={currentAccount} />
+        )}
       </View>
-    </ScrollView>
+    </Screen>
   )
 }
 

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
+import React from "react"
 import {
   Image,
   View,
@@ -11,80 +10,72 @@ import {
 import { useNavigation } from "@react-navigation/native"
 import { Text } from "../../components"
 import { colors } from "../../theme"
-// import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-// import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { CardTransaction } from "../../components/CardTransaction"
 import { ButtonViewAllTransactions } from "../../components/ButtonViewAllTransactions"
+import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
 
-type TransactionsProps = {
-  type: boolean
-  icon: any
-  title: string
-  date: string
-  amount: string | number
-  currency: string
-}[]
+type RecenTransactionsProps = {
+  transactions: {
+    type: boolean
+    icon: any
+    title: string
+    date: string
+    amount: string | number
+    currency: string
+  }[]
+  currentAccount: number
+}
 
-export const RecentTransactions = () => {
+export const RecentTransactions = ({ transactions, currentAccount }: RecenTransactionsProps) => {
   const { width: windowWidth } = useWindowDimensions()
   const widthContainer = (windowWidth * 92) / 100
-  //   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
-  //   const { bottom } = useSafeAreaInsets()
   const navigation = useNavigation()
   const theme = useColorScheme()
 
-  const [transactions, setTransactions] = useState<TransactionsProps>([])
-
-  useEffect(() => {
-    try {
-      ;(async () => {
-        await axios.get("/transactions").then(function (response) {
-          setTransactions(response.data.transactions)
-        })
-      })()
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
-
   return (
-    <View
-      style={[
-        $transactionsContainer,
-        { backgroundColor: colors[theme].backgroundCard, width: widthContainer },
-      ]}
+    <Animated.View
+      entering={FadeIn.delay(300)}
+      exiting={FadeOut.duration(200)}
+      key={currentAccount}
     >
-      <TouchableOpacity activeOpacity={0.8} style={$filterButton}>
-        <Image source={require("../../../assets/icons/filter.png")} />
-      </TouchableOpacity>
-      <Text
-        text="Recent transactions"
-        size="md"
-        weight="bold"
-        style={{ color: colors[theme].title }}
-      />
-      {transactions.map((data, index) => {
-        return (
-          <TouchableOpacity
-            key={index}
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate("Transaction")}
-          >
-            <CardTransaction
-              index={index}
-              manyTransaction={transactions.length}
-              type={data.type}
-              icon={data.icon}
-              title={data.title}
-              date={data.date}
-              amount={data.amount}
-              currency={data.currency}
-            />
-          </TouchableOpacity>
-        )
-      })}
-      <ButtonViewAllTransactions />
-    </View>
+      <View
+        style={[
+          $transactionsContainer,
+          { backgroundColor: colors[theme].backgroundCard, width: widthContainer },
+        ]}
+      >
+        <TouchableOpacity activeOpacity={0.8} style={$filterButton}>
+          <Image source={require("../../../assets/icons/filter.png")} />
+        </TouchableOpacity>
+        <Text
+          text="Recent transactions"
+          size="md"
+          weight="bold"
+          style={{ color: colors[theme].title }}
+        />
+        {transactions.map((data, index) => {
+          return (
+            <TouchableOpacity
+              key={index}
+              activeOpacity={0.8}
+              onPress={() => navigation.navigate("Transaction")}
+            >
+              <CardTransaction
+                index={index}
+                manyTransaction={transactions.length}
+                type={data.type}
+                icon={data.icon}
+                title={data.title}
+                date={data.date}
+                amount={data.amount}
+                currency={data.currency}
+              />
+            </TouchableOpacity>
+          )
+        })}
+        <ButtonViewAllTransactions />
+      </View>
+    </Animated.View>
   )
 }
 
