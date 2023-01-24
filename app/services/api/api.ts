@@ -38,7 +38,20 @@ export class Api {
       },
     })
   }
+
+  getAccounts() {
+    return this.apisauce.get("/accounts")
+  }
+
+  getTransactions(accountId: number) {
+    return this.apisauce.get(`/accounts/${accountId}/transactions`)
+  }
+
+  getAllTransactions() {
+    return this.apisauce.get(`/allTransactions`)
+  }
 }
 
 // Singleton instance of the API for convenience
+
 export const api = new Api()
