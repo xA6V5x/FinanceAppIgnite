@@ -46,3 +46,18 @@ export interface ApiConfig {
    */
   timeout: number
 }
+
+export type AccountsGet = {
+  id: string
+  name: string
+  currentBalance: string | number
+}[]
+
+export type TransactionsGet = {
+  type: boolean
+  icon: any
+  title: string
+  date: string
+  amount: string | number
+  currency: string
+}[]

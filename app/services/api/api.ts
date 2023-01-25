@@ -7,7 +7,7 @@
  */
 import { ApisauceInstance, create } from "apisauce"
 import Config from "../../config"
-import type { ApiConfig } from "./api.types"
+import type { ApiConfig, AccountsGet, AllTransactionsGet } from "./api.types"
 
 /**
  * Configuring the apisauce instance.
@@ -21,21 +21,6 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
  * Manages all requests to the API. You can use this class to build out
  * various requests that you need to call from your backend API.
  */
-
-type AccountCardListProps = {
-  id: string
-  name: string
-  currentBalance: string | number
-}[]
-
-type AllTransactionsProps = {
-  type: boolean
-  icon: any
-  title: string
-  date: string
-  amount: string | number
-  currency: string
-}[]
 
 export class Api {
   apisauce: ApisauceInstance
@@ -56,7 +41,7 @@ export class Api {
   }
 
   getAccounts() {
-    return this.apisauce.get<AccountCardListProps>("/accounts")
+    return this.apisauce.get<AccountsGet>("/accounts")
   }
 
   getTransactions(accountId: number) {
@@ -64,7 +49,7 @@ export class Api {
   }
 
   getAllTransactions() {
-    return this.apisauce.get<AllTransactionsProps>(`/allTransactions`)
+    return this.apisauce.get<AllTransactionsGet>(`/allTransactions`)
   }
 }
 
