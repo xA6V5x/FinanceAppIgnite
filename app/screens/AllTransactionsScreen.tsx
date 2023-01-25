@@ -1,12 +1,10 @@
-import axios from "axios"
-import MockAdapter from "axios-mock-adapter"
 import React, { useEffect, useState } from "react"
-import { View, ViewStyle, ScrollView, useColorScheme } from "react-native"
+import { View, ViewStyle, ScrollView, useColorScheme, useWindowDimensions } from "react-native"
 import { Text } from "../components"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { colors } from "../theme"
 import { CardTransaction } from "../components/CardTransaction"
-import { AllTransactions } from "../services/api/infoRoutes"
+import { api } from "../services/api"
 
 type AllTransactionsProps = {
   type: boolean
@@ -18,26 +16,22 @@ type AllTransactionsProps = {
 }[]
 
 export const AllTransactionsScreen = () => {
+  const { width: windowWidth } = useWindowDimensions()
+  const widthCard = (90 * windowWidth) / 100
+
   const { bottom } = useSafeAreaInsets()
   const theme = useColorScheme()
 
   const [allTransactions, setAllTransactions] = useState<AllTransactionsProps>([])
 
-  const mock = new MockAdapter(axios)
-
-  mock.onGet("/allTransactions").reply(200, {
-    allTransactions: AllTransactions,
-  })
-
   useEffect(() => {
     try {
       ;(async () => {
-        await axios.get("/allTransactions").then(function (response) {
-          setAllTransactions(response.data.allTransactions)
-        })
+        const { data } = await api.getAllTransactions()
+        setAllTransactions(data)
       })()
     } catch (error) {
-      console.log("Error in Axios AllTransactions")
+      console.log(error)
     }
   }, [])
 
@@ -52,7 +46,7 @@ export const AllTransactionsScreen = () => {
             weight="bold"
           />
         </View>
-        <View style={$allTransactions}>
+        <View style={{ width: widthCard }}>
           {allTransactions.map((data, index) => {
             return (
               <CardTransaction
@@ -90,5 +84,3 @@ const $headerContainer: ViewStyle = {
   width: "100%",
   alignItems: "center",
 }
-
-const $allTransactions: ViewStyle = { width: "90%" }

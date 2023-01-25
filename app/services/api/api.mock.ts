@@ -2,9 +2,9 @@ import MockAdapter from "axios-mock-adapter"
 import { Accounts, Transactions, AllTransactions } from "./infoRoutes"
 import { api } from "./api"
 
-const mock = new MockAdapter(api.apisauce.axiosInstance, { delayResponse: 300 })
+const mock = new MockAdapter(api.apisauce.axiosInstance)
 
-mock.onGet("/accounts").reply(200, { Accounts })
+mock.onGet("/accounts").reply(200, Accounts)
 
 let accountTransactionsCounters = {
   [1]: 1,
@@ -12,7 +12,7 @@ let accountTransactionsCounters = {
   [3]: 1,
 }
 
-mock.onGet("/allTransactions").reply(200, { AllTransactions })
+mock.onGet("/allTransactions").reply(200, AllTransactions)
 
 mock.onGet(/\/accounts\/\d+\/transactions/).reply((config) => {
   const [, id] = config.url.match(/\/accounts\/(\d+)\/transactions/)
