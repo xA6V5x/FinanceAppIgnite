@@ -15,11 +15,11 @@ export const Dot = ({ isSelected }: DotProps) => {
   const isSelectedSharedValue = useSharedValue(1)
 
   const selectDot = () => {
-    isSelectedSharedValue.value = withTiming(1, { duration: 200 })
+    isSelectedSharedValue.value = withTiming(1, { duration: 500 })
   }
 
   const normalDot = () => {
-    isSelectedSharedValue.value = withTiming(0, { duration: 200 })
+    isSelectedSharedValue.value = withTiming(0, { duration: 500 })
   }
 
   useEffect(() => {

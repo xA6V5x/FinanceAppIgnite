@@ -78,7 +78,10 @@ export const AccountHistoryScreen = () => {
 
   const refreshData = async () => {
     setIsRefreshing(true)
-    await Promise.all([getAccounts(), activeAccountId && getRecentTransactions(activeAccountId)])
+    await Promise.all([
+      getAccounts(),
+      (activeAccountId === 0 || activeAccountId) && getRecentTransactions(activeAccountId),
+    ])
     setIsRefreshing(false)
   }
 
