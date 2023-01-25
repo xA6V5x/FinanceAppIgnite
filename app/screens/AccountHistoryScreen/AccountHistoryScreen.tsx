@@ -31,21 +31,11 @@ type TransactionsProps = {
   currency: string
 }[]
 
-// -----------API MOCK-----------
-// const mock = new MockAdapter(axios)
-// mock.onGet("/accounts").reply(200, {
-//   accounts: Accounts,
-// })
-
-// mock.onGet("/transactions").reply(200, {
-//   transactions: Transactions,
-// })
-
-// -------------------------------
-
 export const AccountHistoryScreen = () => {
   const { bottom } = useSafeAreaInsets()
+
   const navigation = useNavigation()
+
   const theme = useColorScheme()
 
   const [accounts, setAccounts] = useState<AccountCardListProps>([])
@@ -60,9 +50,9 @@ export const AccountHistoryScreen = () => {
     getAccounts()
   }, [])
 
-  // useEffect(() => {
-  //   getRecentTransactions(activeAccountId)
-  // }, [])
+  useEffect(() => {
+    getRecentTransactions(activeAccountId)
+  }, [activeAccountId])
 
   const getAccounts = async () => {
     try {
@@ -75,25 +65,20 @@ export const AccountHistoryScreen = () => {
     }
   }
 
-  // const getRecentTransactions = async (activeAccountId: number) => {
-  //   try {
-  //     ;(
-  //       async () => {
-  //       await axios.get("/transactions").then(function (response) {
-  //         setTransactions(response.data.transactions)
-  //       })
-  //     })()
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const getRecentTransactions = async (activeAccountId: number) => {
+    try {
+      ;(async () => {
+        const { data } = await api.getTransactions(activeAccountId)
+        setTransactions(data)
+      })()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const refreshData = async () => {
     setIsRefreshing(true)
-    await Promise.all([
-      getAccounts(),
-      // , activeAccountId && getRecentTransactions(activeAccountId)
-    ])
+    await Promise.all([getAccounts(), activeAccountId && getRecentTransactions(activeAccountId)])
     setIsRefreshing(false)
   }
 

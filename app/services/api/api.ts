@@ -7,7 +7,7 @@
  */
 import { ApisauceInstance, create } from "apisauce"
 import Config from "../../config"
-import type { ApiConfig, AccountsGet, AllTransactionsGet } from "./api.types"
+import type { ApiConfig, AccountsGet, TransactionsGet } from "./api.types"
 
 /**
  * Configuring the apisauce instance.
@@ -45,11 +45,11 @@ export class Api {
   }
 
   getTransactions(accountId: number) {
-    return this.apisauce.get(`/accounts/${accountId}/transactions`)
+    return this.apisauce.get<TransactionsGet>(`/accounts/${accountId}/transactions`)
   }
 
   getAllTransactions() {
-    return this.apisauce.get<AllTransactionsGet>(`/allTransactions`)
+    return this.apisauce.get<TransactionsGet>(`/allTransactions`)
   }
 }
 

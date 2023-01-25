@@ -7,9 +7,9 @@ const mock = new MockAdapter(api.apisauce.axiosInstance)
 mock.onGet("/accounts").reply(200, Accounts)
 
 let accountTransactionsCounters = {
+  [0]: 1,
   [1]: 1,
   [2]: 1,
-  [3]: 1,
 }
 
 mock.onGet("/allTransactions").reply(200, AllTransactions)
