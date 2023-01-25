@@ -12,10 +12,11 @@ import { Text } from "../../components"
 import { colors } from "../../theme"
 import { CardTransaction } from "../../components/CardTransaction"
 import { ButtonViewAllTransactions } from "../../components/ButtonViewAllTransactions"
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated"
+import Animated, { FadeIn, FadeOut, Layout } from "react-native-reanimated"
 
 type RecenTransactionsProps = {
   transactions: {
+    id: string
     type: boolean
     icon: any
     title: string
@@ -34,9 +35,9 @@ export const RecentTransactions = ({ transactions, currentAccount }: RecenTransa
 
   return (
     <Animated.View
+      key={currentAccount}
       entering={FadeIn.delay(300)}
       exiting={FadeOut.duration(200)}
-      key={currentAccount}
     >
       <View
         style={[
@@ -55,22 +56,27 @@ export const RecentTransactions = ({ transactions, currentAccount }: RecenTransa
         />
         {transactions.map((data, index) => {
           return (
-            <TouchableOpacity
-              key={index}
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate("Transaction")}
+            <Animated.View
+              key={data.id}
+              entering={FadeIn.duration(600)}
+              layout={Layout.duration(300)}
             >
-              <CardTransaction
-                index={index}
-                manyTransaction={transactions.length}
-                type={data.type}
-                icon={data.icon}
-                title={data.title}
-                date={data.date}
-                amount={data.amount}
-                currency={data.currency}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate("Transaction")}
+              >
+                <CardTransaction
+                  index={index}
+                  manyTransaction={transactions.length}
+                  type={data.type}
+                  icon={data.icon}
+                  title={data.title}
+                  date={data.date}
+                  amount={data.amount}
+                  currency={data.currency}
+                />
+              </TouchableOpacity>
+            </Animated.View>
           )
         })}
         <ButtonViewAllTransactions />

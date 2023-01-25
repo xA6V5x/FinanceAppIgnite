@@ -24,6 +24,7 @@ export const Accounts = [
 
 export const Transactions = [
   {
+    id: "1",
     type: false,
     icon: car,
     title: "'Golub' Taxi Transportation",
@@ -32,6 +33,7 @@ export const Transactions = [
     currency: "EUR",
   },
   {
+    id: "2",
     type: false,
     icon: restaurant,
     title: "'Francois' Dinner",
@@ -40,6 +42,7 @@ export const Transactions = [
     currency: "EUR",
   },
   {
+    id: "3",
     type: false,
     icon: travels,
     title: "'AirMax' Travel to Paris",
@@ -48,6 +51,7 @@ export const Transactions = [
     currency: "EUR",
   },
   {
+    id: "4",
     type: true,
     icon: construction,
     title: "Construction Itd.",
@@ -56,6 +60,7 @@ export const Transactions = [
     currency: "USD",
   },
   {
+    id: "5",
     type: true,
     icon: person,
     title: "Rober Smith",
